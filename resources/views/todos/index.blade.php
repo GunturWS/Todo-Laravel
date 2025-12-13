@@ -3,183 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Todo App</title>
-
-    <style>
-        :root {
-            --nova-dark: #242424;
-            --nova-gray: #665c54;
-            --nova-milk: #e7d7ad;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: var(--nova-dark);
-            display: flex;
-            justify-content: center;
-            padding-top: 80px;
-            color: var(--nova-milk);
-        }
-
-        .container {
-            background: #2e2e2e;
-            width: 420px;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 24px;
-            color: var(--nova-milk);
-            letter-spacing: 1px;
-        }
-
-        /* ADD FORM */
-        form.add {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-
-        input {
-            flex: 1;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: none;
-            background: #3a3a3a;
-            color: var(--nova-milk);
-        }
-
-        input::placeholder {
-            color: #b8b0a0;
-        }
-
-        button {
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn-add {
-            background: var(--nova-milk);
-            color: var(--nova-dark);
-        }
-
-        .btn-add:hover {
-            opacity: 0.9;
-        }
-
-        /* LIST */
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            background: #353535;
-            padding: 12px 14px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .todo-title {
-            max-width: 220px;
-            word-wrap: break-word;
-        }
-
-        .actions {
-            display: flex;
-            gap: 6px;
-        }
-
-        .btn-edit {
-            background: var(--nova-gray);
-            color: white;
-        }
-
-        .btn-delete {
-            background: #c0392b;
-            color: white;
-        }
-
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: #2e2e2e;
-            padding: 24px;
-            width: 320px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
-
-        .modal-content h3 {
-            margin-bottom: 16px;
-            text-align: center;
-            color: var(--nova-milk);
-        }
-
-        .modal-content input {
-            width: 100%;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .btn-update {
-            background: var(--nova-milk);
-            color: var(--nova-dark);
-            flex: 1;
-        }
-
-        .btn-cancel {
-            background: #555;
-            color: white;
-            flex: 1;
-        }
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
 
-<div class="container">
-    <h1>Todo App</h1>
+<body class="bg-nova-dark flex justify-center pt-20 text-nova-milk">
 
-    <form method="POST" action="/todos" class="add">
+<div class="bg-[#2e2e2e] h-auto w-full max-w-md p-6 rounded-xl shadow-2xl">
+    <h1 class="text-center text-2xl font-bold tracking-wide mb-6">
+        Todo App
+    </h1>
+
+    <!-- ADD TODO -->
+    <form method="POST" action="/todos" class="flex gap-3 mb-6">
         @csrf
-        <input type="text" name="title" placeholder="Tambah todo baru..." required>
-        <button type="submit" class="btn-add">Tambah</button>
+        <input
+            type="text"
+            name="title"
+            placeholder="Tambah todo baru..."
+            required
+            class="flex-1 px-3 py-2 rounded-lg bg-[#3a3a3a] text-nova-milk
+                   placeholder:text-[#b8b0a0] focus:outline-none focus:ring-2 focus:ring-nova-milk"
+        >
+        <button
+            type="submit"
+            class="px-4 py-2 rounded-lg bg-nova-milk text-nova-dark font-semibold hover:opacity-90 transition"
+        >
+            Tambah
+        </button>
     </form>
 
-    <ul>
+    <!-- LIST -->
+    <ul class="space-y-2">
         @foreach ($todos as $todo)
-            <li>
-                <span class="todo-title">{{ $todo->title }}</span>
+            <li class="bg-[#353535] px-4 py-3 rounded-lg flex justify-between items-center">
+                <span class="max-w-[220px] break-words">
+                    {{ $todo->title }}
+                </span>
 
-                <div class="actions">
+                <div class="flex gap-2">
                     <button
-                        class="btn-edit"
+                        type="button"
                         onclick="openModal({{ $todo->id }}, '{{ $todo->title }}')"
+                        class="px-3 py-1 rounded-md bg-nova-gray text-white text-sm hover:opacity-90 transition"
                     >
                         Edit
                     </button>
@@ -187,7 +52,12 @@
                     <form action="/todos/{{ $todo->id }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="btn-delete">Hapus</button>
+                        <button
+                            type="submit"
+                            class="px-3 py-1 rounded-md bg-red-600 text-white text-sm hover:bg-red-700 transition"
+                        >
+                            Hapus
+                        </button>
                     </form>
                 </div>
             </li>
@@ -196,19 +66,30 @@
 </div>
 
 <!-- MODAL -->
-<div class="modal" id="editModal">
-    <div class="modal-content">
-        <h3>Edit Todo</h3>
+<div id="editModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+    <div class="bg-[#2e2e2e] w-full max-w-sm p-6 rounded-xl shadow-2xl">
+        <h3 class="text-center text-lg font-semibold mb-4">Edit Todo</h3>
 
-        <form method="POST" id="editForm">
+        <form method="POST" id="editForm" class="space-y-4">
             @csrf
             @method('PUT')
 
-            <input type="text" name="title" id="editTitle" required>
+            <input
+                type="text"
+                name="title"
+                id="editTitle"
+                required
+                class="w-full px-3 py-2 rounded-lg bg-[#3a3a3a] text-nova-milk
+                       focus:outline-none focus:ring-2 focus:ring-nova-milk"
+            >
 
-            <div class="modal-actions">
-                <button type="submit" class="btn-update">Update</button>
-                <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
+            <div class="flex gap-3">
+                <button type="submit" class="flex-1 py-2 rounded-lg bg-nova-milk text-nova-dark font-semibold hover:opacity-90 transition">
+                    Update
+                </button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2 rounded-lg bg-gray-600 text-white hover:bg-gray-700 transition">
+                    Batal
+                </button>
             </div>
         </form>
     </div>
@@ -216,13 +97,17 @@
 
 <script>
     function openModal(id, title) {
-        document.getElementById('editModal').style.display = 'flex';
+        const modal = document.getElementById('editModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
         document.getElementById('editTitle').value = title;
         document.getElementById('editForm').action = '/todos/' + id;
     }
 
     function closeModal() {
-        document.getElementById('editModal').style.display = 'none';
+        const modal = document.getElementById('editModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
     }
 </script>
 
