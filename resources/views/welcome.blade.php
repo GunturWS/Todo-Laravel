@@ -13,12 +13,21 @@
     </div>
 
     <!-- CONTENT -->
-    <div id="content" class="opacity-0 transform translate-y-5 transition-all duration-700 text-center p-10 bg-[#2e2e2e] rounded-xl shadow-2xl">
-        <h1 class="text-3xl font-bold mb-3">Welcome to Todo App</h1>
-        <p class="text-nova-gray mb-5">Kelola aktivitas harianmu dengan mudah</p>
-        <a href="/todos" class="inline-block px-6 py-3 bg-nova-milk text-nova-dark font-bold rounded-lg hover:opacity-90 hover:scale-105 transition transform">
-            Masuk ke Todo
-        </a>
+    <div id="content" class="opacity-0 transform translate-y-5 transition-all duration-700 text-center p-10 bg-[#2e2e2e] rounded-xl shadow-2xl space-y-6">
+        <h1 class="text-3xl font-bold mb-3">Welcome to My App</h1>
+        <p class="text-nova-gray">Kelola aktivitas harianmu dengan mudah</p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+            <!-- Todo Button -->
+            <a href="/todos" class="px-6 py-3 bg-nova-milk text-nova-dark font-bold rounded-lg hover:opacity-90 hover:scale-105 transition transform">
+                Masuk ke Todo
+            </a>
+
+            <!-- Note Button -->
+            <a href="/notes" class="px-6 py-3 bg-nova-gray text-nova-milk font-bold rounded-lg hover:opacity-90 hover:scale-105 transition transform">
+                Masuk ke Note
+            </a>
+        </div>
     </div>
 
     <script>

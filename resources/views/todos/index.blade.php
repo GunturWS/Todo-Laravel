@@ -8,6 +8,11 @@
 
 <body class="bg-nova-dark flex justify-center pt-20 text-nova-milk">
 
+ <!-- LOADER -->
+    <div id="loader" class="fixed inset-0 bg-nova-dark flex items-center justify-center z-50 transition-opacity duration-500">
+        <div class="w-14 h-14 border-4 border-nova-gray border-t-4 border-t-nova-milk rounded-full animate-spin"></div>
+    </div>
+
 <div class="bg-[#2e2e2e] h-auto w-full max-w-md p-6 rounded-xl shadow-2xl">
     <h1 class="text-center text-2xl font-bold tracking-wide mb-6">
         Todo App
@@ -109,6 +114,17 @@
         modal.classList.add('hidden');
         modal.classList.remove('flex');
     }
+
+     window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const content = document.getElementById('content');
+
+            setTimeout(() => {
+                loader.classList.add('opacity-0');
+                setTimeout(() => loader.style.display = 'none', 500); // hilangkan loader setelah fade
+                content.classList.add('opacity-100', 'translate-y-0');
+            }, 1000); // durasi loading
+        });
 </script>
 
 </body>

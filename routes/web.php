@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\TodoController;
+// Route halaman utama (welcome)
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/todos', [TodoController::class, 'index']);
-Route::post('/todos', [TodoController::class, 'store']);
-Route::delete('/todos/{id}', [TodoController::class, 'destroy']);
-Route::get('/todos/{id}/edit', [TodoController::class, 'edit']);
-Route::put('/todos/{id}', [TodoController::class, 'update']);
+// Include route lain
+require __DIR__.'/todo.php';
+require __DIR__.'/note.php'; 
