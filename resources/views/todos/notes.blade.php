@@ -45,10 +45,15 @@
 
                 <!-- Buttons -->
                 <div class="flex justify-end gap-3 mt-auto">
-                    <button onclick="openModal({{ $note->id }}, @json($note->title))"
-        class="px-4 py-2 rounded-xl bg-nova-gray text-white text-sm hover:bg-[#7c7164] transition">
+<button
+    type="button"
+    class="edit-btn px-4 py-2 rounded-xl bg-nova-gray text-white text-sm hover:bg-[#7c7164] transition"
+    data-id="{{ $note->id }}"
+    data-title="{{ e($note->title) }}"
+>
     Edit
 </button>
+
 
                     <form method="POST" action="/notes/{{ $note->id }}">
                         @csrf
@@ -82,7 +87,7 @@
             <textarea
                 name="title"
                 id="editTitle"
-                rows="8"
+                rows="9"
                 required
                 placeholder="Tulis catatanmu di sini..."
                 class="w-full px-4 py-4 rounded-2xl bg-[#3a3a3a] text-nova-milk placeholder:text-nova-gray focus:outline-none focus:ring-2 focus:ring-nova-milk resize-y transition shadow-inner"
@@ -103,34 +108,42 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('editModal');
     const modalContent = document.getElementById('modalContent');
+    const editTitle = document.getElementById('editTitle');
+    const editForm = document.getElementById('editForm');
 
-    window.openModal = function(id, title) {
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            modalContent.classList.remove('scale-95', 'opacity-0');
-            modalContent.classList.add('scale-100', 'opacity-100');
-        }, 10);
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.dataset.id;
+            const title = button.dataset.title;
 
-        document.getElementById('editTitle').value = title;
-        document.getElementById('editForm').action = '/notes/' + id;
-    }
+            editTitle.value = title;
+            editForm.action = `/notes/${id}`;
 
-    window.closeModal = function() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        });
+    });
+
+    window.closeModal = function () {
         modalContent.classList.add('scale-95', 'opacity-0');
         modalContent.classList.remove('scale-100', 'opacity-100');
         setTimeout(() => modal.classList.add('hidden'), 300);
-    }
+    };
 
-    // Close modal saat klik di luar content
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+    // modal.addEventListener('click', (e) => {
+    //     if (e.target === modal) closeModal();
+    // });
 });
-
 </script>
+
+
+
 
 
 </body>
