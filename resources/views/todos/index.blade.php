@@ -8,12 +8,21 @@
 
 <body class="bg-nova-dark flex justify-center pt-20 text-nova-milk">
 
- <!-- LOADER -->
-    <div id="loader" class="fixed inset-0 bg-nova-dark flex items-center justify-center z-50 transition-opacity duration-500">
-        <div class="w-14 h-14 border-4 border-nova-gray border-t-4 border-t-nova-milk rounded-full animate-spin"></div>
-    </div>
+<!-- LOADER -->
+<div id="loader" class="fixed inset-0 bg-nova-dark flex items-center justify-center z-50 transition-opacity duration-500">
+    <div class="w-14 h-14 border-4 border-nova-gray border-t-4 border-t-nova-milk rounded-full animate-spin"></div>
+</div>
 
-<div class="bg-[#2e2e2e] h-auto w-full max-w-md p-6 rounded-xl shadow-2xl">
+<div class="bg-[#2e2e2e] w-full max-w-md p-6 rounded-xl shadow-2xl">
+
+    <!-- BACK BUTTON (SAMA SEPERTI NOTES) -->
+    <a href="/"
+       class="inline-block mb-4 px-4 py-2 rounded-lg
+              bg-[#3a3a3a] text-nova-milk text-sm
+              hover:opacity-90 transition">
+        ← Back to Home
+    </a>
+
     <h1 class="text-center text-2xl font-bold tracking-wide mb-6">
         Todo App
     </h1>
@@ -27,12 +36,13 @@
             placeholder="Tambah todo baru..."
             required
             class="flex-1 px-3 py-2 rounded-lg bg-[#3a3a3a] text-nova-milk
-                   placeholder:text-[#b8b0a0] focus:outline-none focus:ring-2 focus:ring-nova-milk"
+                   placeholder:text-[#b8b0a0]
+                   focus:outline-none focus:ring-2 focus:ring-nova-milk"
         >
         <button
             type="submit"
-            class="px-4 py-2 rounded-lg bg-nova-milk text-nova-dark font-semibold hover:opacity-90 transition"
-        >
+            class="px-4 py-2 rounded-lg bg-nova-milk text-nova-dark
+                   font-semibold hover:opacity-90 transition">
             Tambah
         </button>
     </form>
@@ -49,8 +59,8 @@
                     <button
                         type="button"
                         onclick="openModal({{ $todo->id }}, '{{ $todo->title }}')"
-                        class="px-3 py-1 rounded-md bg-nova-gray text-white text-sm hover:opacity-90 transition"
-                    >
+                        class="px-3 py-1 rounded-md bg-nova-gray
+                               text-white text-sm hover:opacity-90 transition">
                         Edit
                     </button>
 
@@ -59,8 +69,8 @@
                         @method('DELETE')
                         <button
                             type="submit"
-                            class="px-3 py-1 rounded-md bg-red-600 text-white text-sm hover:bg-red-700 transition"
-                        >
+                            class="px-3 py-1 rounded-md bg-red-600
+                                   text-white text-sm hover:bg-red-700 transition">
                             Hapus
                         </button>
                     </form>
@@ -69,6 +79,7 @@
         @endforeach
     </ul>
 </div>
+
 
 <!-- MODAL -->
 <div id="editModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">

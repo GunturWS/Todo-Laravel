@@ -9,6 +9,12 @@
 <body class="bg-nova-dark text-nova-milk min-h-screen py-10">
 
 <div class="container mx-auto px-4">
+
+    <a href="/"
+   class="inline-block mb-4 px-4 py-2 rounded-lg bg-[#3a3a3a] text-nova-milk text-sm hover:opacity-90 transition">
+    ← Back to Home
+</a>
+
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-4xl font-bold">My Notes</h1>
